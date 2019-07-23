@@ -18,12 +18,14 @@ main()
 
 exports.getMarkets = async function (ctx) {
   let result = await blz.read('markets')
-  ctx.body = new rData(ctx, "0",result);
+  if (result == ''){
+    ctx.body = new rData(ctx, "1");
+  }
+  ctx.body = new rData(ctx, "0",JSON.parse(result));
 }
 
 
 async function callAPI(){
- 
   let options = {
     method : 'GET',
     uri : `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`,
@@ -34,13 +36,13 @@ async function callAPI(){
   try {
     await blz.update('markets',JSON.stringify(body));
   } catch (error) {
-    log.error("error",error)
+    log.error("callApi error:",error)
     await blz.create('markets',JSON.stringify(body));
   }
 
 } 
 
-//every 20second to action callAPI
+//every 20 seconds to action callAPI
 setInterval(callAPI,20000)
 
 

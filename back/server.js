@@ -9,16 +9,11 @@ const bodyParser = require('koa-bodyparser');
 const router = require('koa-router')();
 const logger = require(global.config.info.DIR + 'utils/logger').logger;
 const httpLogger = require(global.config.info.DIR + 'utils/logger').httpLogger;
-
-
-
-
-
-
+const serve = require('koa-static');
 
 require('colors');
 const app = new koa();
-
+app.use(serve('../front/'));
 app.use(httpLogger);
 
 

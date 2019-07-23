@@ -1,5 +1,4 @@
 .DS_Store
-node_modules/
-log/*
-package-lock.json
-.gitgnore
+back/node_modules/
+back/log/*
+back/package-lock.json
